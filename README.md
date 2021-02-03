@@ -29,7 +29,7 @@ The images for camera calibration are stored in the folder called `camera_cal`. 
 [image5]: ./output_images/image_pipeline/final_gradient.jpg "Binary Example"
 [image6]: ./output_images/image_pipeline/lane_original.jpg "Original Lane"
 [image7]: ./output_images/image_pipeline/bird_eye.jpg "Bird's Eye View"
-[image8]: ./output_images/image_pipeline/bird_eye.jpg "Histogram"
+[image8]: ./output_images/image_pipeline/histogram.jpg "Histogram"
 [image9]: ./output_images/image_pipeline/detect_lane.jpg "Lane Detection with Sliding Windows"
 [image10]: ./output_images/image_pipeline/detect_lane2.jpg "Lane Detection based on Previous Polynomial"
 [image11]: ./output_images/test1.jpg "Final Pipeline Output"
