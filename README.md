@@ -89,7 +89,7 @@ The steps I followed for my project can be highlighted as follows:
 2. Calculate the color gradient along the x and y axis. 
 ```python 
     sobel_x = get_gradient(gray, True, sobel_kernel = 7)
-     sobel_y = get_gradient(gray, False, sobel_kernel = 7)
+    sobel_y = get_gradient(gray, False, sobel_kernel = 7)
 ```
  The kernel refers to the amount of pixels we should leverage to calculate the gradient (i.e. 7 x 7)
 
@@ -138,7 +138,7 @@ Then, preserve pixels when either the gradient or color thresholds are met.
 An example of the output of this process can be found below:
 ![alt text][image5]
 
-The section containing the implementation can be found on the [Transformation to Binary Image Section](./AdvancedLaneFinding.ipynb#transformations)
+The section containing the implementation can be found on the [Transformation to A Binary Image Section](./AdvancedLaneFinding.ipynb#transformations)
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image. <a name="perspective"></a>
 
@@ -174,7 +174,7 @@ An exmaple of transforming a picture in bird's eye view can be seen below:
 ![alt text][image6]
 ![alt text][image7]
 
-*The section containing the implementation can be found on the [Perspective Section](./AdvancedLaneFinding.ipynb#perspective)*
+*The section containing the implementation can be found on the [Perspective Transform Section](./AdvancedLaneFinding.ipynb#perspective)*
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial? <a name="boundaries"></a>
 
@@ -191,7 +191,7 @@ However, it is true that lanes don't move that much between frames, so we could 
 
 * Implementaion in function `detect_lane_lines_bias`*
 
-*The section containing the implementation can be found on the [Detecting Line Section](./AdvancedLaneFinding.ipynb#boundaries)*
+*The section containing the implementation can be found on the [Detecting Line Boundaries Section](./AdvancedLaneFinding.ipynb#boundaries)*
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center. <a name="curvature"></a>
 
@@ -209,13 +209,15 @@ It must also be noted that we have to add conversion factors between pixels and 
 | 30/720        | 3.7/700       | 
 
 
-*The section containing the implementation can be found on the [Detecting Line Section](./AdvancedLaneFinding.ipynb#boundaries)*
+*The section containing the implementation can be found on the [Lane Curvature & Vehicle Center Section](./AdvancedLaneFinding.ipynb#boundaries)*
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly. <a name="render"></a>
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+Finally, we proceed to tranform the image back to the original perspective and overlay the lane we found onto the original image. To complete this step I created a `highlight_lane` functions that receives polynomials corresponding to the left and right lane and highlights the space in between them as green. An example of the final output can be seen below:
 
-![alt text][image6]
+![alt text][image11]
+
+*The section containing the implementation can be found on the [Render Lane Lines](./AdvancedLaneFinding.ipynb#render)*
 
 ---
 
@@ -231,6 +233,8 @@ Here's a [link to my video result](./output_videos/project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+While the video performance is favourable, the pipeline will likely fail under low light conditions such as shadows and heavily curved lanes. The reason for this is related to the manual thresholds identified that are not optimized for lanes and pictures under all possible conditions.
 
+There are a number of potential improvements that can be implemented to improve performance of the pipeline. First, for thresholding images, different thresholds could be provided depending on the overall lightness of the image. That way, shadows or excessive sunlight in the image wouldn't interfere with line detection. Next, when identifying lane pixels, depending on the curvature of the lane and overall change between frames, parallel calculations could be triggered to validate findings with multiple pipelines.
 
+However, these transformations are more suited for a machine learning solution using convolutional neural networks. That way, we can use the images to train our algorithm and allow it to select the most feasible thresholds and final function to determine what features of an image are more relevant to identify lane lines.
